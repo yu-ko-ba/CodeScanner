@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">コードスキャナー</string>
     <string name="scanned_text">取得したデータ</string>
     <string name="copy_to_clipboard">クリップボードへコピー</string>
     <string name="scan">スキャン</string>
+    <string name="installing" tools:ignore="TypographyEllipsis">インストール中...</string>
+    <string name="clip_text_label">スキャンしたデータ</string>
 </resources>

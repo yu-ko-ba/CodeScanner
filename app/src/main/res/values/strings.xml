@@ -1,6 +1,8 @@
-<resources>
-    <string name="app_name" translatable="false">Code Scanner</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Code Scanner</string>
     <string name="scanned_text">Scanned text</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
     <string name="scan">Scan</string>
+    <string name="installing" tools:ignore="TypographyEllipsis">Installing...</string>
+    <string name="clip_text_label">Scanned text</string>
 </resources>

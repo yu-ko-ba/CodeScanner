@@ -41,7 +41,10 @@ android {
 
 dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.compose.ui.text.google.fonts)
+    implementation(libs.androidx.ui.text.google.fonts)
+    implementation(libs.google.play.services.code.scanner)
+    implementation(libs.google.play.services.base)
+    implementation(libs.google.play.services.tflite.java)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
