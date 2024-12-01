@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scanned_text">取得したデータ</string>
+    <string name="copy_to_clipboard">クリップボードへコピー</string>
+    <string name="scan">スキャン</string>
+</resources>

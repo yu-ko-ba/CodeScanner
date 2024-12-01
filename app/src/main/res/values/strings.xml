@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Code Scanner</string>
+    <string name="app_name" translatable="false">Code Scanner</string>
+    <string name="scanned_text">Scanned text</string>
+    <string name="copy_to_clipboard">Copy to clipboard</string>
+    <string name="scan">Scan</string>
 </resources>

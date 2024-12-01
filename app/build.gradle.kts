@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "io.github.yukoba.codescanner"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "io.github.yukoba.codescanner"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.compose.ui.text.google.fonts)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
