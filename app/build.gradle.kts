@@ -42,10 +42,10 @@ android {
 
 dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.google.play.services.code.scanner)
     implementation(libs.google.play.services.base)
     implementation(libs.google.play.services.tflite.java)
+    implementation(libs.yukoba.create.typography.from.font.name)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
