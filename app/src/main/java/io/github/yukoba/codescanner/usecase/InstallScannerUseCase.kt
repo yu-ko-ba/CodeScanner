@@ -8,11 +8,12 @@ import com.google.android.gms.tflite.java.TfLite
 
 class InstallScannerUseCase(
     private val context: Context,
-    private val onInstallProgressChanged: (Float) -> Unit = {},
-    private val onInstallSucceed: () -> Unit = {},
-    private val onInstallFailed: () -> Unit = {},
 ) {
-    fun install() {
+    operator fun invoke(
+        onInstallProgressChanged: (Float) -> Unit = {},
+        onInstallSucceed: () -> Unit = {},
+        onInstallFailed: () -> Unit = {},
+    ) {
         val installClient = ModuleInstall.getClient(context)
         val optionalModuleApi = TfLite.getClient(context)
         val installProgressListener = InstallStatusListener {

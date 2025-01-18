@@ -7,9 +7,6 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
 
 class CodeScanUseCase(
     context: Context,
-    private val onScanSucceed: (String?) -> Unit = {},
-    private val onScanFailed: (Exception) -> Unit = {},
-    private val onScanCanceled: () -> Unit = {},
 ) {
     private val scanner: GmsBarcodeScanner
 
@@ -20,7 +17,11 @@ class CodeScanUseCase(
         scanner = GmsBarcodeScanning.getClient(context, options)
     }
 
-    fun scan() {
+    operator fun invoke(
+        onScanSucceed: (String?) -> Unit = {},
+        onScanFailed: (Exception) -> Unit = {},
+        onScanCanceled: () -> Unit = {},
+    ) {
         scanner.startScan()
             .addOnSuccessListener { scannedData ->
                 onScanSucceed(scannedData.rawValue)

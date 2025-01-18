@@ -20,43 +20,39 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     )
     private val codeScanUseCase = CodeScanUseCase(
         context = getApplication<Application>().applicationContext,
-        onScanSucceed = ::onScanSucceed,
     )
 
     init {
-        InstallScannerUseCase(
+        val installScannerUseCase = InstallScannerUseCase(
             context = getApplication<Application>().applicationContext,
+        )
+
+        installScannerUseCase(
             onInstallProgressChanged = { progress ->
                 _uiState.update { currentState ->
                     currentState.copy(scannerInstallationProgress = progress)
                 }
             },
-            onInstallSucceed = ::onScannerInstallSucceed,
-            onInstallFailed = ::onScannerInstallFailed,
-        ).install()
+            onInstallSucceed = {
+                _uiState.update { currentState ->
+                    currentState.copy(scannerInstallationStatus = ScannerInstallationStatus.SUCCEED)
+                }
+            },
+        )
     }
 
     fun onCopyToClipboardButtonClicked() {
         // This button is disabled while scannedText is null.
-        copyToClipboardUseCase.copy(_uiState.value.scannedText!!)
+        copyToClipboardUseCase(_uiState.value.scannedText!!)
     }
 
     fun onScanButtonClicked() {
-        codeScanUseCase.scan()
-    }
-
-    private fun onScanSucceed(scannedText: String?) {
-        _uiState.update { currentState ->
-            currentState.copy(scannedText = scannedText)
-        }
-    }
-
-    private fun onScannerInstallSucceed() {
-        _uiState.update { currentState ->
-            currentState.copy(scannerInstallationStatus = ScannerInstallationStatus.SUCCEED)
-        }
-    }
-
-    private fun onScannerInstallFailed() {
+        codeScanUseCase(
+            onScanSucceed = {
+                _uiState.update { currentState ->
+                    currentState.copy(scannedText = it)
+                }
+            }
+        )
     }
 }
