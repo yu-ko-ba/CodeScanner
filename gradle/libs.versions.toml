@@ -13,7 +13,7 @@ lifecycleViewModelCompose = "2.8.7"
 codeScanner = "16.1.0"
 googlePlayServicesBase = "18.5.0"
 googlePlayServicesTfliteJava = "16.4.0"
-createTypographyFromFontName = "0.0.3"
+createTypography = "0.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,10 +35,9 @@ androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "l
 google-play-services-code-scanner = { group = "com.google.android.gms", name = "play-services-code-scanner", version.ref = "codeScanner" }
 google-play-services-base = { group = "com.google.android.gms", name = "play-services-base", version.ref = "googlePlayServicesBase" }
 google-play-services-tflite-java = { group = "com.google.android.gms", name = "play-services-tflite-java", version.ref = "googlePlayServicesTfliteJava" }
-yukoba-create-typography-from-font-name = { group = "com.github.yu-ko-ba", name = "CreateTypographyFromFontName", version.ref = "createTypographyFromFontName" }
+yuyuyuyuyu-createtypography = { group = "dev.yuyuyuyuyu", name = "createtypography", version.ref = "createTypography" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-

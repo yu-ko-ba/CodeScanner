@@ -1,6 +1,6 @@
 package io.github.yukoba.codescanner.ui.theme
 
-import io.github.yukoba.createtypographyfromfontname.createTypographyFromFontName
+import dev.yuyuyuyuyu.createtypography.createTypographyFrom
 
 // Set of Material typography styles to start with
-val Typography = createTypographyFromFontName("Yomogi")
+val Typography = createTypographyFrom(fontName = "Yomogi")

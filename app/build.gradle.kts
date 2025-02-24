@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "io.github.yukoba.codescanner"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 35
         versionCode = 1
         versionName = "0.1.0"
@@ -45,7 +45,7 @@ dependencies {
     implementation(libs.google.play.services.code.scanner)
     implementation(libs.google.play.services.base)
     implementation(libs.google.play.services.tflite.java)
-    implementation(libs.yukoba.create.typography.from.font.name)
+    implementation(libs.yuyuyuyuyu.createtypography)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
