@@ -18,7 +18,9 @@ class InstallScannerUseCase(
         val optionalModuleApi = TfLite.getClient(context)
         val installProgressListener = InstallStatusListener {
             val progressInfo = it.progressInfo ?: return@InstallStatusListener
-            onInstallProgressChanged((progressInfo.bytesDownloaded / progressInfo.totalBytesToDownload).toFloat())
+            val totalBytesToDownload = progressInfo.totalBytesToDownload
+            if (totalBytesToDownload <= 0L) return@InstallStatusListener
+            onInstallProgressChanged(progressInfo.bytesDownloaded.toFloat() / totalBytesToDownload)
         }
         val installRequest = ModuleInstallRequest.newBuilder()
             .addApi(optionalModuleApi)
