@@ -11,9 +11,11 @@ class CodeScanUseCase(
     private val scanner: GmsBarcodeScanner
 
     init {
-        val options = GmsBarcodeScannerOptions.Builder()
-            .enableAutoZoom()
-            .build()
+        val options =
+            GmsBarcodeScannerOptions
+                .Builder()
+                .enableAutoZoom()
+                .build()
         scanner = GmsBarcodeScanning.getClient(context, options)
     }
 
@@ -22,14 +24,13 @@ class CodeScanUseCase(
         onScanFailed: (Exception) -> Unit = {},
         onScanCanceled: () -> Unit = {},
     ) {
-        scanner.startScan()
+        scanner
+            .startScan()
             .addOnSuccessListener { scannedData ->
                 onScanSucceed(scannedData.rawValue)
-            }
-            .addOnFailureListener { e ->
+            }.addOnFailureListener { e ->
                 onScanFailed(e)
-            }
-            .addOnCanceledListener {
+            }.addOnCanceledListener {
                 onScanCanceled()
             }
     }

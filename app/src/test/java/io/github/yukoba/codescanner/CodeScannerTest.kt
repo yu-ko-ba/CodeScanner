@@ -63,6 +63,7 @@ class CodeScannerTest {
 }
 
 @Implements(GmsBarcodeScanning::class)
+@Suppress("UtilityClassWithPublicConstructor")
 class ShadowGmsBarcodeScanning {
     companion object {
         private var scanResult: Barcode? = null
@@ -73,7 +74,11 @@ class ShadowGmsBarcodeScanning {
 
         @JvmStatic
         @Implementation
-        fun getClient(context: Context, options: GmsBarcodeScannerOptions): GmsBarcodeScanner =
+        @Suppress("UnusedParameter")
+        fun getClient(
+            context: Context,
+            options: GmsBarcodeScannerOptions,
+        ): GmsBarcodeScanner =
             object : GmsBarcodeScanner {
                 override fun startScan(): Task<Barcode> = Tasks.forResult(checkNotNull(scanResult))
 
@@ -89,53 +94,70 @@ class ShadowGmsBarcodeScanning {
 }
 
 @Implements(ModuleInstall::class)
+@Suppress("UtilityClassWithPublicConstructor")
 class ShadowModuleInstall {
     companion object {
         @JvmStatic
         @Implementation
-        fun getClient(context: Context): ModuleInstallClient = object : ModuleInstallClient {
-            override fun installModules(
-                request: ModuleInstallRequest,
-            ): Task<ModuleInstallResponse> = Tasks.forResult(ModuleInstallResponse(0))
+        @Suppress("UnusedParameter")
+        fun getClient(context: Context): ModuleInstallClient =
+            object : ModuleInstallClient {
+                override fun installModules(request: ModuleInstallRequest): Task<ModuleInstallResponse> =
+                    Tasks.forResult(ModuleInstallResponse(0))
 
-            override fun areModulesAvailable(
-                vararg apis: OptionalModuleApi,
-            ): Task<ModuleAvailabilityResponse> = throw UnsupportedOperationException()
+                override fun areModulesAvailable(vararg apis: OptionalModuleApi): Task<ModuleAvailabilityResponse> =
+                    throw UnsupportedOperationException()
 
-            override fun deferredInstall(vararg apis: OptionalModuleApi): Task<Void> =
-                throw UnsupportedOperationException()
+                override fun deferredInstall(vararg apis: OptionalModuleApi): Task<Void> =
+                    throw UnsupportedOperationException()
 
-            override fun getInstallModulesIntent(
-                vararg apis: OptionalModuleApi,
-            ): Task<ModuleInstallIntentResponse> = throw UnsupportedOperationException()
+                override fun getInstallModulesIntent(
+                    vararg apis: OptionalModuleApi,
+                ): Task<ModuleInstallIntentResponse> = throw UnsupportedOperationException()
 
-            override fun releaseModules(vararg apis: OptionalModuleApi): Task<Void> =
-                throw UnsupportedOperationException()
+                override fun releaseModules(vararg apis: OptionalModuleApi): Task<Void> =
+                    throw UnsupportedOperationException()
 
-            override fun unregisterListener(listener: InstallStatusListener): Task<Boolean> =
-                throw UnsupportedOperationException()
+                override fun unregisterListener(listener: InstallStatusListener): Task<Boolean> =
+                    throw UnsupportedOperationException()
 
-            override fun getApiKey(): ApiKey<Api.ApiOptions.NoOptions> =
-                throw UnsupportedOperationException()
-        }
+                override fun getApiKey(): ApiKey<Api.ApiOptions.NoOptions> = throw UnsupportedOperationException()
+            }
     }
 }
 
-private class RawValueOnlyBarcodeSource(private val value: String) : BarcodeSource {
+private class RawValueOnlyBarcodeSource(
+    private val value: String,
+) : BarcodeSource {
     override fun getRawValue(): String = value
+
     override fun getDisplayValue(): String = value
+
     override fun getRawBytes(): ByteArray = value.toByteArray()
+
     override fun getFormat(): Int = Barcode.FORMAT_UNKNOWN
+
     override fun getValueType(): Int = Barcode.TYPE_UNKNOWN
+
     override fun getBoundingBox(): Rect? = null
+
     override fun getCornerPoints(): Array<Point>? = null
+
     override fun getCalendarEvent(): Barcode.CalendarEvent? = null
+
     override fun getContactInfo(): Barcode.ContactInfo? = null
+
     override fun getDriverLicense(): Barcode.DriverLicense? = null
+
     override fun getEmail(): Barcode.Email? = null
+
     override fun getGeoPoint(): Barcode.GeoPoint? = null
+
     override fun getPhone(): Barcode.Phone? = null
+
     override fun getSms(): Barcode.Sms? = null
+
     override fun getUrl(): Barcode.UrlBookmark? = null
+
     override fun getWifi(): Barcode.WiFi? = null
 }

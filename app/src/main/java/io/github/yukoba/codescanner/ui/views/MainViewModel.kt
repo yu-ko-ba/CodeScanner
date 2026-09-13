@@ -11,21 +11,26 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(
+    application: Application,
+) : AndroidViewModel(application) {
     private val _uiState = MutableStateFlow(MainUiState())
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
 
-    private val copyToClipboardUseCase = CopyToClipboardUseCase(
-        getApplication<Application>().applicationContext,
-    )
-    private val codeScanUseCase = CodeScanUseCase(
-        context = getApplication<Application>().applicationContext,
-    )
-
-    init {
-        val installScannerUseCase = InstallScannerUseCase(
+    private val copyToClipboardUseCase =
+        CopyToClipboardUseCase(
+            getApplication<Application>().applicationContext,
+        )
+    private val codeScanUseCase =
+        CodeScanUseCase(
             context = getApplication<Application>().applicationContext,
         )
+
+    init {
+        val installScannerUseCase =
+            InstallScannerUseCase(
+                context = getApplication<Application>().applicationContext,
+            )
 
         installScannerUseCase(
             onInstallProgressChanged = { progress ->
@@ -52,7 +57,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _uiState.update { currentState ->
                     currentState.copy(scannedText = it)
                 }
-            }
+            },
         )
     }
 }

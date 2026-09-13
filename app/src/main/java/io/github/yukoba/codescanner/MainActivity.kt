@@ -25,13 +25,14 @@ class MainActivity : ComponentActivity() {
             CodeScannerTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    topBar = { TopAppBar(title = { Text(stringResource(R.string.app_name)) }) }
+                    topBar = { TopAppBar(title = { Text(stringResource(R.string.app_name)) }) },
                 ) { innerPadding ->
                     MainView(
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .fillMaxSize()
-                            .padding(16.dp),
+                        modifier =
+                            Modifier
+                                .padding(innerPadding)
+                                .fillMaxSize()
+                                .padding(16.dp),
                     )
                 }
             }
