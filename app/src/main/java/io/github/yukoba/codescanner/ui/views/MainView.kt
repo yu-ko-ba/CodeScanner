@@ -17,17 +17,19 @@ fun MainView(
     val uiState by viewModel.uiState.collectAsState()
 
     when (uiState.scannerInstallationStatus) {
-        ScannerInstallationStatus.INSTALLING -> ScannerInstallingScreen(
-            progress = uiState.scannerInstallationProgress,
-            modifier = modifier,
-        )
+        ScannerInstallationStatus.INSTALLING ->
+            ScannerInstallingScreen(
+                progress = uiState.scannerInstallationProgress,
+                modifier = modifier,
+            )
 
-        ScannerInstallationStatus.SUCCEED -> ScannerScreen(
-            scannedText = uiState.scannedText,
-            onCopyToClipboardButtonClicked = viewModel::onCopyToClipboardButtonClicked,
-            onScanButtonClicked = viewModel::onScanButtonClicked,
-            modifier = modifier,
-        )
+        ScannerInstallationStatus.SUCCEED ->
+            ScannerScreen(
+                scannedText = uiState.scannedText,
+                onCopyToClipboardButtonClicked = viewModel::onCopyToClipboardButtonClicked,
+                onScanButtonClicked = viewModel::onScanButtonClicked,
+                modifier = modifier,
+            )
 
         ScannerInstallationStatus.FAILED -> TODO()
     }

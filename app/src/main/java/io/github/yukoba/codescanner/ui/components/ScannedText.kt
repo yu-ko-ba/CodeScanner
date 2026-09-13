@@ -18,7 +18,7 @@ fun ScannedText(
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+        verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         Text(stringResource(R.string.scanned_text))
         TextField(

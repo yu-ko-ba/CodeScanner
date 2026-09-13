@@ -63,51 +63,51 @@ class CodeScannerTest {
 }
 
 @Implements(GmsBarcodeScanning::class)
-class ShadowGmsBarcodeScanning {
-    companion object {
-        private var scanResult: Barcode? = null
+object ShadowGmsBarcodeScanning {
+    private var scanResult: Barcode? = null
 
-        fun scannerReturns(rawValue: String) {
-            scanResult = Barcode(RawValueOnlyBarcodeSource(rawValue))
+    fun scannerReturns(rawValue: String) {
+        scanResult = Barcode(RawValueOnlyBarcodeSource(rawValue))
+    }
+
+    @JvmStatic
+    @Implementation
+    @Suppress("UnusedParameter")
+    fun getClient(
+        context: Context,
+        options: GmsBarcodeScannerOptions,
+    ): GmsBarcodeScanner =
+        object : GmsBarcodeScanner {
+            override fun startScan(): Task<Barcode> = Tasks.forResult(checkNotNull(scanResult))
+
+            override fun getOptionalFeatures(): Array<Feature> = emptyArray()
         }
 
-        @JvmStatic
-        @Implementation
-        fun getClient(context: Context, options: GmsBarcodeScannerOptions): GmsBarcodeScanner =
-            object : GmsBarcodeScanner {
-                override fun startScan(): Task<Barcode> = Tasks.forResult(checkNotNull(scanResult))
-
-                override fun getOptionalFeatures(): Array<Feature> = emptyArray()
-            }
-
-        @JvmStatic
-        @Resetter
-        fun reset() {
-            scanResult = null
-        }
+    @JvmStatic
+    @Resetter
+    fun reset() {
+        scanResult = null
     }
 }
 
 @Implements(ModuleInstall::class)
-class ShadowModuleInstall {
-    companion object {
-        @JvmStatic
-        @Implementation
-        fun getClient(context: Context): ModuleInstallClient = object : ModuleInstallClient {
-            override fun installModules(
-                request: ModuleInstallRequest,
-            ): Task<ModuleInstallResponse> = Tasks.forResult(ModuleInstallResponse(0))
+object ShadowModuleInstall {
+    @JvmStatic
+    @Implementation
+    @Suppress("UnusedParameter")
+    fun getClient(context: Context): ModuleInstallClient =
+        object : ModuleInstallClient {
+            override fun installModules(request: ModuleInstallRequest): Task<ModuleInstallResponse> =
+                Tasks.forResult(ModuleInstallResponse(0))
 
-            override fun areModulesAvailable(
-                vararg apis: OptionalModuleApi,
-            ): Task<ModuleAvailabilityResponse> = throw UnsupportedOperationException()
+            override fun areModulesAvailable(vararg apis: OptionalModuleApi): Task<ModuleAvailabilityResponse> =
+                throw UnsupportedOperationException()
 
             override fun deferredInstall(vararg apis: OptionalModuleApi): Task<Void> =
                 throw UnsupportedOperationException()
 
-            override fun getInstallModulesIntent(
-                vararg apis: OptionalModuleApi,
-            ): Task<ModuleInstallIntentResponse> = throw UnsupportedOperationException()
+            override fun getInstallModulesIntent(vararg apis: OptionalModuleApi): Task<ModuleInstallIntentResponse> =
+                throw UnsupportedOperationException()
 
             override fun releaseModules(vararg apis: OptionalModuleApi): Task<Void> =
                 throw UnsupportedOperationException()
@@ -115,27 +115,42 @@ class ShadowModuleInstall {
             override fun unregisterListener(listener: InstallStatusListener): Task<Boolean> =
                 throw UnsupportedOperationException()
 
-            override fun getApiKey(): ApiKey<Api.ApiOptions.NoOptions> =
-                throw UnsupportedOperationException()
+            override fun getApiKey(): ApiKey<Api.ApiOptions.NoOptions> = throw UnsupportedOperationException()
         }
-    }
 }
 
-private class RawValueOnlyBarcodeSource(private val value: String) : BarcodeSource {
+private class RawValueOnlyBarcodeSource(
+    private val value: String,
+) : BarcodeSource {
     override fun getRawValue(): String = value
+
     override fun getDisplayValue(): String = value
+
     override fun getRawBytes(): ByteArray = value.toByteArray()
+
     override fun getFormat(): Int = Barcode.FORMAT_UNKNOWN
+
     override fun getValueType(): Int = Barcode.TYPE_UNKNOWN
+
     override fun getBoundingBox(): Rect? = null
+
     override fun getCornerPoints(): Array<Point>? = null
+
     override fun getCalendarEvent(): Barcode.CalendarEvent? = null
+
     override fun getContactInfo(): Barcode.ContactInfo? = null
+
     override fun getDriverLicense(): Barcode.DriverLicense? = null
+
     override fun getEmail(): Barcode.Email? = null
+
     override fun getGeoPoint(): Barcode.GeoPoint? = null
+
     override fun getPhone(): Barcode.Phone? = null
+
     override fun getSms(): Barcode.Sms? = null
+
     override fun getUrl(): Barcode.UrlBookmark? = null
+
     override fun getWifi(): Barcode.WiFi? = null
 }
